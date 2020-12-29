@@ -23,6 +23,7 @@ Note: the requirements.txt will allow you to run both the OLS and LORACCS method
 
 # Usage example (using jupyter notebook or similar) 
 
+```
 from OLS_image_normalization import OLS_Image_Normalization
 
 outdir = 'the filepath of the directory to which you would like the corrected image and associated outputs saved'
@@ -30,3 +31,4 @@ ref_img_fp = 'the filepath of the image to be used as reference'
 tgt_img_fp = 'the filepath of the image to be corrected'
 
 OLS_Image_Normalization(outdir, ref_img_fp, tgt_img_fp)
+```
