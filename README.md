@@ -2,9 +2,9 @@
 This is the code to run the orthogonal least squares regression that was used as a comparison to the performance
 of the LOESS Radiometric Correction for Contiguous Scenes (LORACCS). 
 
-The paper corresponding to this work is pending publication in the open source International 
-Journal of Applied Earth Observations and Geoinformation. The link will be pasted
-here when available.
+The paper corresponding to this work is published in the open source International 
+Journal of Applied Earth Observations and Geoinformation:
+https://authors.elsevier.com/sd/article/S0303-2434(20)30933-8
 
 LORACCS was developed to create seamless mosaics using Planet Dove imagery from the same day, 
 though it should work with other image sources.  It is mostly beneficial when trying to mosaic
