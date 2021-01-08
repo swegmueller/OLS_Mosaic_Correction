@@ -485,30 +485,24 @@ class OLS_Image_Normalization():
         # read in as numpy arrays
         data = gdal_array.BandReadAsArray(band_data)
 
-        # Copy the orginal array
-        trans_array = np.array(data, copy=True)
-
         spec_vals_dict = dict(zip(full_spectra.Spec_vals, full_spectra.Predicted))
 
         top_end = max(full_spectra.Spec_vals.values)
         bottom_end = min(full_spectra.Spec_vals.values)
 
-        for band_row in range(0, trans_array.shape[0]): # iterate through rows
-            for pixel in range(0, trans_array.shape[1]): # iterate through pixels
+        # Change the data type in preparation for changing values
+        data = data.astype('float')
 
-                tgt_val = data[band_row][pixel] 
+        # Loop through spectral values, replace with new value / 100000.  Division
+        # necessary so already replaced values are not overwritten
+        for spec_val in spec_vals_dict:   
+            data[data == spec_val] = spec_vals_dict[spec_val] / 100000
 
-                if tgt_val != 0:
-                    if tgt_val <= bottom_end or tgt_val >= top_end:
-                        continue
-                    else: 
-                        new_val = spec_vals_dict[tgt_val]
-                        trans_array[band_row][pixel] = new_val
-                else:
-                    continue 
+        # Multiply by 100000 to restore proper values, return dtype
+        data = data*100000
+        data = data.astype('uint16')
 
-        return trans_array # Returns band array transformed by the OLS method
- 
+        return data # Returns band array transformed by the OLS method 
             
     def get_qa_pixels(self, overlap_shp_fp, ols_img_fp, outdir):
         '''
@@ -626,5 +620,3 @@ class OLS_Image_Normalization():
         nrmse_df.to_csv('NRMSE_per_band.csv')
 
         return nrmse_df
-        
-            
